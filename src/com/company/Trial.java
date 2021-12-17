@@ -1,5 +1,9 @@
 package com.company;
+
 import java.io.*;
+import java.io.File;  // Import the File class
+import java.io.FileWriter;
+import java.io.IOException;  // Import the IOException class to handle errors
 
 public class Trial {
     void createFile() {
@@ -43,5 +47,5 @@ public class Trial {
         }
         br.close();
         fr.close();
-    }
+            }
         }
