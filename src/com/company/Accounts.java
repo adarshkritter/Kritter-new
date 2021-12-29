@@ -3,6 +3,7 @@ package com.company;
 import java.io.*;
 import java.sql.*;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class Accounts {
     Scanner sc = new Scanner(System.in);
@@ -24,7 +25,9 @@ public class Accounts {
         try {
             con = DriverManager.getConnection(MySQLURL, databseUserName, databasePassword);
             if (con != null) {
-                System.out.println("Database connection is successful !!!!");
+                Logger log = Logger.getLogger(Accounts.class.getName());
+                log.info("Database connection is successful !!!!");
+                //System.out.println("Database connection is successful !!!!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,6 +55,7 @@ public class Accounts {
     }
 
     void loan() {
+        //update
         System.out.println("Loan details");
         int i = 1;
         int ln = 0;
@@ -78,12 +82,33 @@ public class Accounts {
         System.out.println("AMount to be repaid :" + Total);
     }
 
-    void printDetails() {
+    void printDetails(int accountNo) throws IOException {
+        FileReader fr=null;
+        BufferedReader br=null;
+        try {
+            int tempAccountno = accountNo;
+            //String fileName = Integer.toString(tempAccountno) + ".txt";
+            //fr = new FileReader(fileName);
+            br = new BufferedReader(fr);
+            int i;
+            while ((i = br.read()) != -1) {
+                System.out.print((char) i);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            br.close();
+            fr.close();
+        }
+
+    }
+    /*
         System.out.println("\nName = " + userName);
         System.out.println("Age = " + userAge);
         System.out.println("Phone number = " + phoneNo);
         System.out.println("Balance = " + balanceAmount + "\n");
-    }
+    }*/
 
     void createAccount() throws SQLException {
         System.out.print("\nEnter your name : ");
@@ -131,15 +156,18 @@ public class Accounts {
                 statement.setFloat(7, balanceAmount);
                 int rowsInserted = statement.executeUpdate();
                 if (rowsInserted > 0) {
-                    System.out.println("A new user was inserted successfully!");
+                    Logger log = Logger.getLogger(Accounts.class.getName());
+                    log.info("A new user was inserted successfully!");
+                    //System.out.println("A new user was inserted successfully!");
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
-                assert con != null;
-                con.close();
+                if (con != null) {
+                    con.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -163,7 +191,9 @@ public class Accounts {
                 PreparedStatement statement = con.prepareStatement(sql);
                 int rowsInserted = statement.executeUpdate();
                 if (rowsInserted > 0) {
-                    System.out.println("Updated successfully!");
+                    Logger log = Logger.getLogger(Accounts.class.getName());
+                    log.info("Updated successfully!");
+                    //System.out.println("Updated successfully!");
                 }
             }
         } catch (Exception e) {
@@ -193,7 +223,9 @@ public class Accounts {
                 PreparedStatement statement = con.prepareStatement(sql);
                 int rowsInserted = statement.executeUpdate();
                 if (rowsInserted > 0) {
-                    System.out.println("Updated successfully!");
+                    Logger log = Logger.getLogger(Accounts.class.getName());
+                    log.info("Updated successfully!");
+                    //System.out.println("Updated successfully!");
                 }
             }
         } catch (Exception e) {

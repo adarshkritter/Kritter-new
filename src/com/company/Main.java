@@ -43,7 +43,7 @@ public class Main {
                                             "\nPlease enter your response : ");
                                     int checkVar = sc.nextInt();
                                     if (checkVar == 1) {
-                                        i.printDetails();
+                                        i.printDetails(i.accountNo);
                                     } else if (checkVar == 2) {
                                         i.withdraw(i.accountNo);
                                     } else if (checkVar == 3) {
@@ -55,7 +55,7 @@ public class Main {
                                     } else {
                                         System.out.println("Invaild entry");
                                     }
-                                    System.out.println("Do you wish to go back? (yes-1 | no-0) : ");
+                                    System.out.println("\nDo you wish to go back? (yes-1 | no-0) : ");
                                     int getting = sc.nextInt();
                                     if (getting != 1) loopingCheck = false;
                                 }
