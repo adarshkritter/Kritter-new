@@ -1,9 +1,14 @@
 package com.company;
 
+//import com.sun.org.slf4j.internal.Logger;
+//import com.sun.org.slf4j.internal.LoggerFactory;
+//import org.apache.log4j.Logger;
+
 import java.io.*;
 import java.sql.*;
+import java.util.logging.Logger;
 
-public class Trial {
+public class Trial  {
     void createFile() {
         try {
             File myObj = new File("abc.txt");
@@ -36,7 +41,7 @@ public class Trial {
     }
 
     void showFile() throws Exception {
-        FileReader fr = new FileReader("adarsh.txt");
+        FileReader fr = new FileReader("40716.txt");
         BufferedReader br = new BufferedReader(fr);
 
         int i;
@@ -105,13 +110,15 @@ public class Trial {
             con = DriverManager.getConnection(MySQLURL, databseUserName, databasePassword);
             if (con != null) {
                 String sql = "update customer set balance=? where accountNo=?";
-
+                con.setAutoCommit(false);
                 PreparedStatement statement = con.prepareStatement(sql);
-                statement.setFloat(1, 5000);
-                statement.setFloat(2, 87915);
+                statement.setFloat(1, 300);
+                statement.setFloat(2, 102);
                 /*    statement.setFloat(3, tempAc);
                  */
                 int rowsInserted = statement.executeUpdate();
+                con.rollback();
+
                 if (rowsInserted > 0) {
                     System.out.println("Mission successful!");
                 }
@@ -130,10 +137,10 @@ public class Trial {
             con = DriverManager.getConnection(MySQLURL, databseUserName, databasePassword);
             if (con != null) {
                 System.out.println("Database connection is successful !!!!");
-                Statement stmt=con.createStatement();
-                ResultSet rs=stmt.executeQuery("select * from customer");
-                while(rs.next())
-                    System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery("select * from customer");
+                while (rs.next())
+                    System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getString(3));
                 con.close();
 
             }
@@ -141,14 +148,33 @@ public class Trial {
             e.printStackTrace();
         }
 
+
     }
+/*
+    public void printDeatils() throws ClassNotFoundException {
+        System.out.println("Implemented");
+        //Creating the Logger object
+        Logger logger = LoggerFactory.getLogger(Class.forName("Trial"));
+
+        //Logging the information
+        logger.warn("Hi This is my first SLF4J program");
+    }*/
+
+    void tria(){
+        Logger log = Logger.getLogger(Trial.class.getName());
+        log.info("Hello this is an info message");
+    }
+
 
 
     public static void main(String[] args) throws Exception {
         Trial e1 = new Trial();
         //e1.mysqlReader();
         //e1.updateMysql();
-        e1.selectMysql();
-
+        //e1.showFile();
+        //e1.selectMysql();
+        //e1.printDeatils();
+        e1.tria();
     }
+
 }
